@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, Animated, View, TextInput } from 'react-native';
+import { Platform, StyleSheet, Text, Animated, View, TextInput } from 'react-native';
 
 import { RectButton } from 'react-native-gesture-handler';
 
@@ -73,6 +73,7 @@ export default class Example extends Component {
           }
           drawerType={TYPES[this.state.type]}
           drawerBackgroundColor="#ddd"
+          overlayColor="#00000000"
           renderNavigationView={
             parallax ? this.renderParallaxDrawer : this.renderDrawer
           }>
@@ -99,6 +100,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 40,
     backgroundColor: 'gray',
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOpacity: 0.5,
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 60,
+      },
+      android: {
+        elevation: 50,
+      },
+    }),
   },
   pageText: {
     fontSize: 21,
